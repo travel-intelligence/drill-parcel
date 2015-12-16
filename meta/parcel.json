@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "name": "DRILL",
+  "version": "${DRILL_VERSION}_${PARCEL_VERSION}",
+  "setActiveSymlink": true,
+  "depends": "CDH",
+  "replaces": "DRILL",
+  "conflicts": "",
+
+  "provides": [
+    "drill"
+  ],
+
+  "scripts": {
+    "defines": "drill_env.sh"
+  },
+
+  "packages": [
+    { "name"   : "apache-drill",
+      "version": "apache-drill-${DRILL_VERSION}"
+    }
+  ],
+
+  "components": [
+    { "name"       : "apache-drill",
+      "version"    : "apache-drill-${DRILL_VERSION}",
+      "pkg_version": "${DRILL_VERSION}",
+      "pkg_release": "${DRILL_VERSION}"
+    }
+  ],
+
+  "users": {
+    "drill": {
+      "longname"    : "Apache Drill",
+      "home"        : "/var/lib/drill",
+      "shell"       : "/bin/bash",
+      "extra_groups": [ "drill" ]
+    }
+  },
+
+  "groups": [
+    "drill"
+  ]
+}
+
