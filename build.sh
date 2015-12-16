@@ -7,13 +7,14 @@ TARBALL=${PACKAGE}.tar.gz
 PARCEL_NAME=DRILL-${DRILL_VERSION}_${PARCEL_VERSION}
 DOWNLOAD_URL=http://apache.cs.utah.edu/drill/drill-${DRILL_VERSION}/${TARBALL}
 DISTROS="wheezy"
+CLEAN="Y"
 
 if [ -d "${PARCEL_NAME}" ]
 then
   rm -rf ${PARCEL_NAME}
 fi
 
-# wget "${DOWNLOAD_URL}"
+wget "${DOWNLOAD_URL}"
 tar xvzf ${TARBALL} 
 mv ${PACKAGE} ${PARCEL_NAME}
 
@@ -27,6 +28,9 @@ do
   tar cvzf ${PARCEL_NAME}-${DISTRO}.parcel ${PARCEL_NAME}
 done
 
-rm -rf ${PARCEL_NAME}
-rm -rf ${TARBALL}
+if [ "${CLEAN}" = "Y" ]
+then
+  rm -rf ${PARCEL_NAME}
+  rm -rf ${TARBALL}
+fi
 
