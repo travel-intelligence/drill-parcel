@@ -1,0 +1,9 @@
+{
+  "drill-conf": {
+    "destination": "/etc/drill/conf",
+    "source": "conf",
+    "priority": 10,
+    "isDirectory": true
+  }
+}
+

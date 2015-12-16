@@ -22,6 +22,7 @@ mkdir -p ${PARCEL_NAME}/meta
 
 cat meta/drill_env.sh | DOLLAR='$' envsubst > ${PARCEL_NAME}/meta/drill_env.sh
 cat meta/parcel.json | DOLLAR='$' envsubst > ${PARCEL_NAME}/meta/parcel.json
+cat meta/alternatives.json > ${PARCEL_NAME}/meta/alternatives.json
 
 for DISTRO in ${DISTROS}
 do
