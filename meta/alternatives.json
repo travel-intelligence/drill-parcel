@@ -4,6 +4,12 @@
     "source": "conf",
     "priority": 10,
     "isDirectory": true
+  },
+  "sqlline": {
+    "destination": "/usr/bin/sqlline",
+    "source": "bin/sqlline",
+    "priority": 10,
+    "isDirectory": false
   }
 }
 
