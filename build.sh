@@ -1,4 +1,4 @@
-#!/bin/sh -ex
+#!/bin/sh -x
 
 export DRILL_VERSION=1.4.0
 export PARCEL_VERSION=0.1
@@ -33,9 +33,32 @@ do
   tar cvzf ${PARCEL_NAME}-${DISTRO}.parcel ${PARCEL_NAME} --owner=root --group=root
 done
 
+# build parcel repo
+RC=$(which make_manifest.py)
+if [ "${RC}" -ne "0" ]
+then
+  echo "Make sure make_manifest.py (cf cm_ext) is in your PATH"
+  exit 1
+fi
+
+rm -rf parcel-repo
+mkdir -p parcel-repo
+
+for DISTRO in ${DISTROS}
+do
+  cp ${PARCEL_NAME}-${DISTRO}.parcel parcel-repo
+done
+
+cd parcel-repo
+make_manifest.py
+
+cd -
+tar cvzf parcel-repo.tar.gz parcel-repo
+
 if [ "${CLEAN}" = "Y" ]
 then
   rm -rf ${PARCEL_NAME}
   rm -rf ${TARBALL}
+  rm -rf parcel-repo
 fi
 
