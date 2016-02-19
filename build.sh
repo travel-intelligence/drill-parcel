@@ -1,7 +1,7 @@
-#!/bin/sh -x
+#!/bin/sh -xe
 
 export DRILL_VERSION=1.4.0
-export PARCEL_VERSION=0.1
+export PARCEL_VERSION=0.7
 PACKAGE=apache-drill-${DRILL_VERSION}
 TARBALL=${PACKAGE}.tar.gz
 PARCEL_NAME=DRILL-${DRILL_VERSION}_${PARCEL_VERSION}
@@ -27,6 +27,7 @@ mkdir -p ${PARCEL_NAME}/meta
 cat meta/drill_env.sh | DOLLAR='$' envsubst > ${PARCEL_NAME}/meta/drill_env.sh
 cat meta/parcel.json | DOLLAR='$' envsubst > ${PARCEL_NAME}/meta/parcel.json
 cat meta/alternatives.json > ${PARCEL_NAME}/meta/alternatives.json
+cp scripts/*cdh* ${PARCEL_NAME}/bin
 
 for DISTRO in ${DISTROS}
 do
@@ -34,7 +35,9 @@ do
 done
 
 # build parcel repo
-RC=$(which make_manifest.py)
+# make sure make_manifest.py from cm_ext is in PATH
+which make_manifest.py
+RC=$?
 if [ "${RC}" -ne "0" ]
 then
   echo "Make sure make_manifest.py (cf cm_ext) is in your PATH"
